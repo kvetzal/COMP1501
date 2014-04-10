@@ -35,6 +35,8 @@ Level myLevel;
 
 ParticleSystem ps;
 
+AudioManager audioManager;
+
 void setup() {
   size(1024, 768);
   smooth();
@@ -44,6 +46,10 @@ void setup() {
   Fisica.init(this);
 
   frameRate(realFrameRate);
+  
+  Minim minim = new Minim(this);
+  audioManager = new AudioManager(minim, "SerialK.wav");
+  audioManager.loop("SerialK.wav");
 }
 
 boolean keyLeft;
@@ -392,4 +398,66 @@ void drawRectangle(VParticle p) {
   vertex(-deform, -deform);
   endShape(CLOSE);
   popMatrix();
+}
+
+import ddf.minim.*;
+
+class AudioManager {
+  private Minim minim;
+  private ArrayList<AudioPlayer> players;
+  
+  public AudioManager(Minim initialMinim, String[] tracks) {
+    minim = initialMinim;
+    players = new ArrayList<AudioPlayer>();
+    for(String name : tracks) {
+      players.add(minim.loadFile(name));
+    }
+  }
+  
+  public AudioManager(Minim initialMinim, String track) {
+    minim = initialMinim;
+    players = new ArrayList<AudioPlayer>();
+    players.add(minim.loadFile(track));
+  }
+  
+  public AudioManager(Minim initialMinim) {
+    minim = initialMinim;
+    players = new ArrayList<AudioPlayer>();
+  }
+  
+  public void addTrack(String name) {
+    players.add(minim.loadFile(name));
+  }
+  
+  public void play(String name) {
+    for(AudioPlayer track : players) {
+      if(track.getMetaData().fileName() == name) {
+        track.play();
+      }
+    }
+  }
+  
+  public void pause(String name) {
+    for(AudioPlayer track : players) {
+      if(track.getMetaData().fileName() == name) {
+        track.pause();
+      }
+    }
+  }
+  
+  public void loop(String name) {
+    for(AudioPlayer track : players) {
+      if(track.getMetaData().fileName() == name) {
+        track.loop();
+      }
+    }
+  }
+  
+  public void rewind(String name) {
+    for(AudioPlayer track : players) {
+      if(track.getMetaData().fileName() == name) {
+        track.rewind();
+      }
+    }
+  }
 }
