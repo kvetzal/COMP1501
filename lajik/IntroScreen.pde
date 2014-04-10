@@ -1,8 +1,4 @@
 /*
-// Punktiert is a particle engine based and thought as an extension of Karsten Schmidt's toxiclibs.physics code. 
-// This library is developed through and for an architectural context. Based on my teaching experiences over the past couple years. (c) 2012 Daniel Köhler, daniel@lab-eds.org
-
-//here: wander fuction as behavior
 
 import punktiert.math.Vec;
 import punktiert.physics.*;
