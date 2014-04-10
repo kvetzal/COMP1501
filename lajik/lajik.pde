@@ -9,6 +9,7 @@ import punktiert.physics.*;
 final int STATE_INTRO = 0;
 final int STATE_GAME = 1;
 final int STATE_LEVEL_EDITOR = 2;
+final int STATE_CREDITS = 3;
 
 //so, change this to 3 once intro state is done. 
 //each state should be stored in a method and whenever this is changed, a state should be capable
@@ -71,9 +72,14 @@ void keyReleased() {
   if (key == 'D' | key == 'd') {
     keyRight = false;
   }
-  if(keyCode == ENTER && current_state == STATE_INTRO) {
-    current_state = STATE_GAME;
-    gameSetup();
+  if(keyCode == ENTER) {
+    if(current_state == STATE_INTRO) {
+      current_state = STATE_CREDITS;
+    }
+    else if(current_state == STATE_CREDITS) {
+      current_state = STATE_GAME;
+      gameSetup();
+    }
   }
 }
 
@@ -149,7 +155,10 @@ void draw() {
     state_game();
   }
   else if(current_state == STATE_INTRO) {
-      introScreenDraw();
+    introScreenDraw();
+  }
+  else if(current_state == STATE_CREDITS) {
+    creditsDraw();
   }
 }
 
@@ -157,7 +166,6 @@ void draw() {
 VPhysics physics;
 Vec mouse;
 int amount = 100;
-int y = 0;
 
 void introScreenSetup() {
   fill(255, 255);
@@ -285,26 +293,7 @@ void introScreenDraw() {
   physics.update();
 
   for (VParticle p : physics.particles) {
-    stroke(255,0);
-  
-    fill(255,150);
-    float deform = p.getVelocity().mag();
-    float rad = p.getRadius();
-    deform = map(deform, 0, 1.5f, rad, 0);
-    deform = max (rad *.2f, deform);
-    
-    float rotation = p.getVelocity().heading();    
-
-    pushMatrix();
-    translate(p.x, p.y);
-    rotate(HALF_PI*.5f+rotation);
-    beginShape();
-    vertex(-rad, +rad);
-    vertex(deform, deform);
-    vertex(rad, -rad);
-    vertex(-deform, -deform);
-    endShape(CLOSE);
-    popMatrix();
+    drawRectangle(p);
   }
   textSize(100);
   
@@ -323,4 +312,74 @@ void introScreenDraw() {
   
   fill(30,12);
   rect(0,0,width,height);
+}
+
+void creditsDraw() {
+  fill(255, 255);
+  
+  physics.update();
+
+  for (VParticle p : physics.particles) {
+    drawRectangle(p);
+  }
+  
+  fill(12);
+  text("By:", (width/2)-20+3, (height*1/8)+3); 
+  
+  fill(225,223,222);
+  text("By:", (width/2)-20, (height*1/8));
+  
+  textSize(30);
+  
+  fill(12);
+  text("Nicholas Hylands", (width/2)-(125)+3, (height*1/5)+3); 
+  
+  fill(225,223,222);
+  text("Nicholas Hylands", (width/2)-(125), (height*1/5)); 
+  
+  fill(12);
+  text("Katrina Vetzal", (width/2)-(105)+3, (height*2/5)+3); 
+  
+  fill(225,223,222);
+  text("Katrina Vetzal", (width/2)-(105), (height*2/5)); 
+  
+  fill(12);
+  text("Matthew McMurray", (width/2)-(125)+3, (height*3/5)+3); 
+  
+  fill(225,223,222);
+  text("Matthew McMurray", (width/2)-(125), (height*3/5)); 
+  
+  fill(12);
+  text("Press Enter", (width/2)-(95)+3, (height*4/5)+3); 
+  
+  fill(225,223,222);
+  text("Press Enter", (width/2)-(95), (height*4/5)); 
+  
+  fill(30,12);
+  rect(0,0,width,height);
+}
+
+int y = 0;
+
+void drawRectangle(VParticle p) {
+  stroke(255,0);
+  
+  fill(255,150);
+  float deform = p.getVelocity().mag();
+  float rad = p.getRadius();
+  deform = map(deform, 0, 1.5f, rad, 0);
+  deform = max (rad *.2f, deform);
+  
+  float rotation = p.getVelocity().heading();    
+
+  pushMatrix();
+  translate(p.x, p.y);
+  rotate(HALF_PI*.5f+rotation);
+  beginShape();
+  vertex(-rad, +rad);
+  vertex(deform, deform);
+  vertex(rad, -rad);
+  vertex(-deform, -deform);
+  endShape(CLOSE);
+  popMatrix();
 }
