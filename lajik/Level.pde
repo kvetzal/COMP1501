@@ -4,6 +4,8 @@ The level class is for managing the games level. Basically we would populate thi
 with level information from an XML file. We would then use it to create and load the level in the 
 fisica world.
 
+Should also have a SaveCurrentLevel method
+
 */
 
 class Level {
