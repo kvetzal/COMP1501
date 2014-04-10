@@ -38,17 +38,18 @@ ParticleSystem ps;
 void setup() {
   size(1024, 768);
   smooth();
-  
+
   introScreenSetup();
-  
+
   Fisica.init(this);
-  
+
   frameRate(realFrameRate);
 }
 
 boolean keyLeft;
 boolean keyRight;
 boolean keyUp;
+boolean keyEnter;
 
 void keyPressed() {
   if (key == 'W' | key == 'w') {
@@ -59,6 +60,9 @@ void keyPressed() {
   }
   if (key == 'D' | key == 'd') {
     keyRight = true;
+  }
+  if (keyCode == ENTER) {
+    keyEnter = true;
   }
 }
 
@@ -73,13 +77,7 @@ void keyReleased() {
     keyRight = false;
   }
   if(keyCode == ENTER) {
-    if(current_state == STATE_INTRO) {
-      current_state = STATE_CREDITS;
-    }
-    else if(current_state == STATE_CREDITS) {
-      current_state = STATE_GAME;
-      gameSetup();
-    }
+    keyEnter = false;
   }
 }
 
@@ -151,13 +149,13 @@ float half_width = width/2;
 float half_height = height/2;
 
 void draw() {
-  if(current_state == STATE_GAME){
+  if (current_state == STATE_GAME) {
     state_game();
   }
-  else if(current_state == STATE_INTRO) {
+  else if (current_state == STATE_INTRO) {
     introScreenDraw();
   }
-  else if(current_state == STATE_CREDITS) {
+  else if (current_state == STATE_CREDITS) {
     creditsDraw();
   }
 }
@@ -184,7 +182,7 @@ void introScreenSetup() {
     VParticle particle = new VParticle(pos, 1, rad);
     //add Collision Behavior
     particle.addBehavior(new BCollision());
-    
+
     particle.addBehavior(new BWander(1, 1, 1));
     //add particle to world
     physics.addParticle(particle);
@@ -244,7 +242,7 @@ void gameSetup() {
   groundTest.setPosition(512, 1501);
 
   myLevel.static_objects.add(groundTest);
-  
+
   /*groundTest = new FBox(30, 500);
    groundTest.setFillColor(#303030);
    groundTest.setFriction(0.1);
@@ -290,86 +288,98 @@ void gameSetup() {
 }
 
 void introScreenDraw() {
-  physics.update();
-
-  for (VParticle p : physics.particles) {
-    drawRectangle(p);
+  if (keyEnter) {
+    current_state = STATE_CREDITS;
+    introScreenSetup();
   }
-  textSize(100);
-  
-  fill(12);
-  text("läjik", (width/2)-(150)+5, (height/2)+5); 
-  
-  fill(225,223,222);
-  text("läjik", (width/2)-(150), (height/2));  
-  textSize(30);
-  
-  fill(12);
-  text("Press Enter", (width/2)-(95)+3, (height*3/4)+3); 
-  
-  fill(225,223,222);
-  text("Press Enter", (width/2)-(95), (height*3/4)); 
-  
-  fill(30,12);
-  rect(0,0,width,height);
+  else {
+    physics.update();
+
+    for (VParticle p : physics.particles) {
+      drawRectangle(p);
+    }
+    textSize(100);
+
+    fill(12);
+    text("läjik", (width/2)-(150)+5, (height/2)+5); 
+
+    fill(225, 223, 222);
+    text("läjik", (width/2)-(150), (height/2));  
+    textSize(30);
+
+    fill(12);
+    text("Press Enter", (width/2)-(95)+3, (height*3/4)+3); 
+
+    fill(225, 223, 222);
+    text("Press Enter", (width/2)-(95), (height*3/4)); 
+
+    fill(30, 12);
+    rect(0, 0, width, height);
+  }
 }
 
 void creditsDraw() {
-  fill(255, 255);
-  
-  physics.update();
-
-  for (VParticle p : physics.particles) {
-    drawRectangle(p);
+  if (keyEnter) {
+    current_state = STATE_GAME;
+    gameSetup();
   }
-  
-  fill(12);
-  text("By:", (width/2)-20+3, (height*1/8)+3); 
-  
-  fill(225,223,222);
-  text("By:", (width/2)-20, (height*1/8));
-  
-  textSize(30);
-  
-  fill(12);
-  text("Nicholas Hylands", (width/2)-(125)+3, (height*1/5)+3); 
-  
-  fill(225,223,222);
-  text("Nicholas Hylands", (width/2)-(125), (height*1/5)); 
-  
-  fill(12);
-  text("Katrina Vetzal", (width/2)-(105)+3, (height*2/5)+3); 
-  
-  fill(225,223,222);
-  text("Katrina Vetzal", (width/2)-(105), (height*2/5)); 
-  
-  fill(12);
-  text("Matthew McMurray", (width/2)-(125)+3, (height*3/5)+3); 
-  
-  fill(225,223,222);
-  text("Matthew McMurray", (width/2)-(125), (height*3/5)); 
-  
-  fill(12);
-  text("Press Enter", (width/2)-(95)+3, (height*4/5)+3); 
-  
-  fill(225,223,222);
-  text("Press Enter", (width/2)-(95), (height*4/5)); 
-  
-  fill(30,12);
-  rect(0,0,width,height);
+  else {
+    fill(255, 255);
+
+    physics.update();
+
+    for (VParticle p : physics.particles) {
+      drawRectangle(p);
+    }
+
+    fill(12);
+    text("By:", (width/2)-20+3, (height*1/8)+3); 
+
+    fill(225, 223, 222);
+    text("By:", (width/2)-20, (height*1/8));
+
+    textSize(30);
+
+    fill(12);
+    text("Nicholas Hylands", (width/2)-(125)+3, (height*1/5)+3); 
+
+    fill(225, 223, 222);
+    text("Nicholas Hylands", (width/2)-(125), (height*1/5)); 
+
+    fill(12);
+    text("Katrina Vetzal", (width/2)-(105)+3, (height*2/5)+3); 
+
+    fill(225, 223, 222);
+    text("Katrina Vetzal", (width/2)-(105), (height*2/5)); 
+
+    fill(12);
+    text("Matthew McMurray", (width/2)-(125)+3, (height*3/5)+3); 
+
+    fill(225, 223, 222);
+    text("Matthew McMurray", (width/2)-(125), (height*3/5)); 
+
+    fill(12);
+    text("Press Enter", (width/2)-(95)+3, (height*4/5)+3); 
+
+    fill(225, 223, 222);
+    text("Press Enter", (width/2)-(95), (height*4/5)); 
+
+    fill(30, 12);
+    rect(0, 0, width, height);
+  }
 }
 
 int y = 0;
 
 void drawRectangle(VParticle p) {
-  stroke(255,0);
-  
-  fill(255,150);
+  stroke(255, 0);
+
+  fill(255, 150);
   float deform = p.getVelocity().mag();
   float rad = p.getRadius();
   deform = map(deform, 0, 1.5f, rad, 0);
   deform = max (rad *.2f, deform);
-  
+
   float rotation = p.getVelocity().heading();    
 
   pushMatrix();
