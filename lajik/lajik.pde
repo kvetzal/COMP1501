@@ -1,20 +1,5 @@
 import fisica.*;
 
-//We are going to want to have a level class, along with a level loader, the level class is going to have that generating
-//stuff in it :|
-
-class Level {
-
-  PVector size;
-  ArrayList<FBox> static_objects;
-  ArrayList<FBox> static_objects_walls;
-
-  Level() {
-
-    static_objects = new ArrayList<FBox>();
-    static_objects_walls = new ArrayList<FBox>();
-  }
-}
 //A couple states planned to be in use.
 //We are going to have a change state method, that will run the start and exit state methods automatically.
 int STATE_GAME = 1;
