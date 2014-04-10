@@ -35,10 +35,9 @@ class Particle {
     startY = sY;
     endX = eX;
     endY = eY;
-    
+
     incrementX = (startX-endX)/lifespan;
     incrementY = (startY-endY)/lifespan;
-    
   }
   Particle(PVector l, float life, float spread, float sX, float sY, float eX, float eY) {
     acceleration = new PVector(0, 0.05);
@@ -57,7 +56,7 @@ class Particle {
     incrementX = (startX-endX)/lifespan;
     incrementY = (startY-endY)/lifespan;
   }
-  Particle(PVector l, float life, float spread,float sX, float sY, float eX, float eY, float r, float b, float g, float rEnd, float gEnd, float bEnd) {
+  Particle(PVector l, float life, float spread, float sX, float sY, float eX, float eY, float r, float b, float g, float rEnd, float gEnd, float bEnd) {
     acceleration = new PVector(0, 0.05);
     velocity = new PVector(random(-spread, spread), random(-spread, spread));
     location = l.get();
@@ -105,8 +104,8 @@ class Particle {
 
   // Method to display
   void display() {
-    stroke(r,g,b,(255.0*(lifespan/deathCounter)));
-    fill(r,g,b,(255.0*(lifespan/deathCounter)));
+    stroke(r, g, b, (255.0*(lifespan/deathCounter)));
+    fill(r, g, b, (255.0*(lifespan/deathCounter)));
     //ellipse(location.x,location.y,8,8);
     rect(location.x, location.y, startX, startY);
   }
@@ -121,3 +120,4 @@ class Particle {
     }
   }
 }
+

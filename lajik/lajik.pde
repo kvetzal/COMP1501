@@ -4,6 +4,12 @@ import fisica.*;
 //We are going to have a change state method, that will run the start and exit state methods automatically.
 int STATE_GAME = 1;
 int STATE_LEVEL_EDITOR = 2;
+int STATE_INTRO = 3;
+
+//so, change this to 3 once intro state is done. 
+//each state should be stored in a method and whenever this is changed, a state should be capable
+//of completely pausing.
+int current_state = 1;
 
 float realFrameRate = 400;
 //float frameCount;
@@ -160,9 +166,9 @@ void state_create_level() {
 void state_game_exit() {
 
   playerModel.removeFromWorld();
-  }
+}
 
-  boolean canGoUp;
+boolean canGoUp;
 
 void state_game() {
   ps.particle_volume = 1;
@@ -221,7 +227,8 @@ float half_width = width/2;
 float half_height = height/2;
 
 void draw() {
-
-  state_game();
+  if (current_state == STATE_GAME) {
+    state_game();
+  }
 }
 
