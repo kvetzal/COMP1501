@@ -10,7 +10,11 @@
  This level file will contain:
  
  background colour
- a list of pbody objects with paramaters - details like location, size, 
+ a list of pbody objects with paramaters - details like location, size, etc~
+ key objects - their locations and which doors they unlock, and colours
+ door objects
+ "finish line" for the level
+ Starting location for the player
  
  */
 
@@ -35,9 +39,11 @@ class Level {
   }
 
   void loadLevelFromXML() {
+    
   }
 
   void saveLevelToXML() {
+    
   }
 }
 

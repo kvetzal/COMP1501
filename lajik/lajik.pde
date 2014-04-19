@@ -3,7 +3,6 @@ import fisica.*;
 import punktiert.math.Vec;
 import punktiert.physics.*;
 
-
 //A couple states planned to be in use.
 //We are going to have a change state method, that will run the start and exit state methods automatically.
 final int STATE_INTRO = 0;
@@ -35,6 +34,8 @@ Level myLevel;
 
 ParticleSystem ps;
 
+boolean debug_level_maker;
+
 void setup() {
   size(1024, 768);
   smooth();
@@ -49,6 +50,11 @@ void setup() {
 boolean keyLeft;
 boolean keyRight;
 boolean keyUp;
+boolean keyDown;
+
+boolean keyPause;
+boolean keyToggleLevelModder;
+
 boolean keyEnter;
 
 void keyPressed() {
@@ -76,13 +82,13 @@ void keyReleased() {
   if (key == 'D' | key == 'd') {
     keyRight = false;
   }
-  if(keyCode == ENTER) {
+  if (keyCode == ENTER) {
     keyEnter = false;
   }
 }
 
 //going to be where we start the level modder. It's going to be a debug option
-void state_create_level() {
+void state_level_maker() {
 }
 
 void state_game_exit() {
@@ -107,6 +113,11 @@ void state_game() {
   if (keyRight) {
     playerModel.addForce(moveSpeed, 0);
     ps.particle_volume = 2;
+  }
+  
+  if (keyToggleLevelModder){
+    
+    
   }
 
   if (keyUp) {
@@ -393,3 +404,4 @@ void drawRectangle(VParticle p) {
   endShape(CLOSE);
   popMatrix();
 }
+
