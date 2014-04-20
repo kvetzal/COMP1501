@@ -2,6 +2,8 @@ import fisica.*;
 //intro screen libraries
 import punktiert.math.Vec;
 import punktiert.physics.*;
+//for the audio manager
+import ddf.minim.*;
 
 //A couple states planned to be in use.
 //We are going to have a change state method, that will run the start and exit state methods automatically.
@@ -34,6 +36,8 @@ Level myLevel;
 
 ParticleSystem ps;
 
+AudioManager audioManager;
+
 boolean debug_level_maker;
 
 void setup() {
@@ -45,6 +49,9 @@ void setup() {
   Fisica.init(this);
 
   frameRate(realFrameRate);
+  
+  Minim minim = new Minim(this);
+  audioManager = new AudioManager(minim);
 }
 
 boolean keyLeft;
