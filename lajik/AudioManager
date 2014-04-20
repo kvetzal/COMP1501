@@ -26,7 +26,7 @@ class AudioManager {
   public void addTrack(String name) {
     players.add(minim.loadFile(name));
   }
-
+  
   public void play(String name) {
     for(AudioPlayer track : players) {
       if(track.getMetaData().fileName() == name) {
@@ -42,7 +42,7 @@ class AudioManager {
       }
     }
   }
-
+  
   public void loop(String name) {
     for(AudioPlayer track : players) {
       if(track.getMetaData().fileName() == name) {
