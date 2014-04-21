@@ -220,11 +220,12 @@ void gameSetup() {
 
   myLevel = new Level();
 
+  float units = width/30;
 
-  world.setEdges(-1024, -768, 2048, 1536);
+  world.setEdges(-width, -height, units*159, units*60);
 
   //InitPlayerModel
-  playerModel = new FBox(40, 40);
+  playerModel = new FBox(units, units);
 
   //Setup playermodel
   playerModel.setBullet(true);
@@ -235,8 +236,10 @@ void gameSetup() {
   playerModel.setDensity(2.0);
   playerModel.setRestitution(0.0);
 
+  createGround();
+
   //starter platform
-  groundTest = new FBox(width, 50);
+  /*groundTest = new FBox(width, 50);
   groundTest.setFillColor(#303030);
   groundTest.setFriction(0.1);
   groundTest.setStatic(true);
@@ -259,7 +262,7 @@ void gameSetup() {
   groundTest.setStatic(true);
   groundTest.setPosition(512, 1501);
 
-  myLevel.static_objects.add(groundTest);
+  myLevel.static_objects.add(groundTest);*/
 
   /*groundTest = new FBox(30, 500);
    groundTest.setFillColor(#303030);
@@ -271,7 +274,7 @@ void gameSetup() {
 
   //create the steps
 
-  for (int i = 0;i < 4;i++) {
+  /*for (int i = 0;i < 4;i++) {
     groundTest = new FBox(100, 10);
     groundTest.setFillColor(#303030);
     groundTest.setFriction(0.1);
@@ -288,7 +291,7 @@ void gameSetup() {
     groundTest.setFill(0, 0, 0, 0);
     groundTest.setNoStroke();
     myLevel.static_objects_walls.add(groundTest);
-  }
+  }*/
 
   for (int i=0;i<myLevel.static_objects.size();i++) {
     world.add(myLevel.static_objects.get(i));
@@ -412,3 +415,148 @@ void drawRectangle(VParticle p) {
   popMatrix();
 }
 
+void createGround() {
+  float units = width/30;
+  FBox oldBox;
+  
+  float boxWidth = units*30;
+  float boxHeight = units*60;
+  float boxX = 0;
+  float boxY = (boxHeight/2)+playerModel.getHeight();
+  oldBox = makeBox(boxWidth, boxHeight, boxX, boxY);
+  
+  boxWidth = units*28;
+  boxHeight = units/8;
+  boxX = oldBox.getX()+(oldBox.getWidth()/2)+(boxWidth/2)+(units*16);
+  boxY = oldBox.getY()-(oldBox.getHeight()/2)+(boxHeight/2);
+  oldBox = makeBox(boxWidth, boxHeight, boxX, boxY);
+  
+  boxX = oldBox.getX()+(units*3);
+  boxY = oldBox.getY()+(units*6);
+  oldBox = makeBox(boxWidth, boxHeight, boxX, boxY);
+  
+  boxX = oldBox.getX()-(units*3);
+  boxY = oldBox.getY()+(units*6);
+  oldBox = makeBox(boxWidth, boxHeight, boxX, boxY);
+  
+  boxX = oldBox.getX()+(units*3);
+  boxY = oldBox.getY()+(units*6);
+  oldBox = makeBox(boxWidth, boxHeight, boxX, boxY);
+  
+  boxWidth -= (units*18)-(units/8);
+  boxX = oldBox.getX()-(oldBox.getWidth()/2)+(boxWidth/2)-(units*3);
+  boxY = oldBox.getY()+(units*6);
+  oldBox = makeBox(boxWidth, boxHeight, boxX, boxY);
+  
+  boxWidth = units/8;
+  boxHeight = (units*24);
+  boxX = oldBox.getX()-(oldBox.getWidth()/2)+(boxWidth/2);
+  boxY = oldBox.getY()-(boxHeight/2);
+  oldBox = makeBox(boxWidth, boxHeight, boxX, boxY);
+  
+  boxWidth = units/8;
+  boxHeight = (units*7);
+  boxX = oldBox.getX()+(oldBox.getWidth()/2)+(boxWidth/2)+(units*5);
+  boxY = oldBox.getY()-(oldBox.getHeight()/2)-(boxHeight/2);
+  oldBox = makeBox(boxWidth, boxHeight, boxX, boxY);
+  
+  boxWidth = units*124;
+  boxHeight = units/8;
+  boxX = oldBox.getX()-(oldBox.getWidth()/2)+(boxWidth/2)-(units*21);
+  boxY = oldBox.getY()+(oldBox.getHeight()/2)+(units*39)+(boxHeight/2);
+  oldBox = makeBox(boxWidth, boxHeight, boxX, boxY);
+  
+  boxWidth = units*5;
+  boxHeight = boxWidth;
+  boxX = oldBox.getX()-(oldBox.getWidth()/2)+(boxWidth/2)+(units*21)+(units/8);
+  boxY = oldBox.getY()-(oldBox.getHeight()/2)-(boxHeight/2);
+  oldBox = makeBox(boxWidth, boxHeight, boxX, boxY);
+  
+  boxHeight *= 2;
+  boxX = oldBox.getX()+(oldBox.getWidth()/2)+(boxWidth/2)+(units*8);
+  boxY = oldBox.getY()+(oldBox.getHeight()/2)-(boxHeight/2);
+  oldBox = makeBox(boxWidth, boxHeight, boxX, boxY);
+  
+  boxHeight /= 2;
+  boxX = oldBox.getX()+(oldBox.getWidth()/2)+(boxWidth/2);
+  boxY = oldBox.getY()+(oldBox.getHeight()/2)-(boxHeight/2);
+  oldBox = makeBox(boxWidth, boxHeight, boxX, boxY);
+  
+  boxHeight = (units*39);
+  boxX = oldBox.getX()+(oldBox.getWidth()/2)+(boxWidth/2)+(units*3);
+  boxY = oldBox.getY()+(oldBox.getHeight()/2)-(boxHeight/2);
+  oldBox = makeBox(boxWidth, boxHeight, boxX, boxY);
+  
+  boxHeight -= units*6;
+  boxX = oldBox.getX()+(oldBox.getWidth()/2)+(boxWidth/2);
+  boxY = oldBox.getY()+(oldBox.getHeight()/2)-(boxHeight/2);
+  oldBox = makeBox(boxWidth, boxHeight, boxX, boxY);
+  
+  boxWidth = units*3;
+  boxHeight = boxWidth;
+  boxX = oldBox.getX()+(oldBox.getWidth()/2)+(boxWidth/2)+(units*14);
+  boxY = oldBox.getY()-(oldBox.getHeight()/2)+(boxHeight/2);
+  oldBox = makeBox(boxWidth, boxHeight, boxX, boxY);
+  
+  boxX = oldBox.getX()+(oldBox.getWidth()/2)+(boxWidth/2)+(units*14);
+  boxY = oldBox.getY()-(oldBox.getHeight()/2)+(boxHeight/2);
+  oldBox = makeBox(boxWidth, boxHeight, boxX, boxY);
+  
+  boxX = oldBox.getX()+(oldBox.getWidth()/2)+(boxWidth/2)+(units*14);
+  boxY = oldBox.getY()-(oldBox.getHeight()/2)+(boxHeight/2);
+  oldBox = makeBox(boxWidth, boxHeight, boxX, boxY);
+  
+  boxHeight = units/8;
+  boxX = oldBox.getX()+(oldBox.getWidth()/2)+(boxWidth/2)+(units*14);
+  boxY = oldBox.getY()-(oldBox.getHeight()/2)+(boxHeight/2);
+  oldBox = makeBox(boxWidth, boxHeight, boxX, boxY);
+  
+  boxWidth = units*10;
+  boxHeight = units*18;
+  boxX = oldBox.getX()+(oldBox.getWidth()/2)-(boxWidth/2);
+  boxY = oldBox.getY()+(units*39)+(units/8);
+  oldBox = makeBox(boxWidth, boxHeight, boxX, boxY);
+  
+  boxWidth = units*3;
+  boxHeight = units/8;
+  boxX = oldBox.getX()-(oldBox.getWidth()/2)-(boxWidth/2)-(units*16);
+  boxY = oldBox.getY()+(units*6);
+  oldBox = makeBox(boxWidth, boxHeight, boxX, boxY);
+  
+  boxX = oldBox.getX()-(oldBox.getWidth()/2)-(boxWidth/2)-(units*16);
+  boxY = oldBox.getY()+(units*6);
+  oldBox = makeBox(boxWidth, boxHeight, boxX, boxY);
+  
+  boxX = oldBox.getX()-(oldBox.getWidth()/2)-(boxWidth/2)-(units*12);
+  boxY = oldBox.getY()-(units*6);
+  oldBox = makeBox(boxWidth, boxHeight, boxX, boxY);
+  
+  boxWidth = units*5;
+  boxHeight = units*18;
+  boxX = oldBox.getX()-(oldBox.getWidth()/2)-(boxWidth/2)-(units*12);
+  boxY = oldBox.getY()-(oldBox.getHeight()/2)+(boxHeight/2)+(units*6);
+  oldBox = makeBox(boxWidth, boxHeight, boxX, boxY);
+  
+  boxWidth = units*159;
+  boxHeight = units/8;
+  boxX = oldBox.getX()-(oldBox.getWidth()/2)-(units*30)+(boxWidth/2);
+  boxY = oldBox.getY()+(oldBox.getHeight()/2);
+  oldBox = makeBox(boxWidth, boxHeight, boxX, boxY);
+}
+
+FBox makeBox(float boxWidth, float boxHeight, float boxX, float boxY) {
+  FBox box = new FBox(boxWidth, boxHeight);
+  box.setFillColor(color(150, 150, 150));
+  box.setFriction(0.1);
+  box.setStatic(true);
+  box.setPosition(boxX, boxY);
+  myLevel.static_objects.add(box);
+  FBox wall = new FBox(box.getWidth()+4, box.getHeight()+1);
+  wall.setFriction(0.1);
+  wall.setStatic(true);
+  wall.setPosition(box.getX()+1, box.getY()+1);
+  wall.setFill(0, 0, 0, 0);
+  wall.setNoStroke();
+  myLevel.static_objects_walls.add(wall);
+  return box;
+}
