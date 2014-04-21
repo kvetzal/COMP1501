@@ -222,7 +222,7 @@ void gameSetup() {
 
   float units = width/30;
 
-  world.setEdges(-width, -height, units*159, units*60);
+  world.setEdges(-width/2, -height, units*159, units*60);
 
   //InitPlayerModel
   playerModel = new FBox(units, units);
