@@ -534,7 +534,7 @@ void createGround() {
   boxWidth = units*5;
   boxHeight = units*18;
   boxX = oldBox.getX()-(oldBox.getWidth()/2)-(boxWidth/2)-(units*12);
-  boxY = oldBox.getY()-(units*6);
+  boxY = oldBox.getY()-(oldBox.getHeight()/2)+(boxHeight/2)+(units*6);
   oldBox = makeBox(boxWidth, boxHeight, boxX, boxY);
   
   boxWidth = units*159;
